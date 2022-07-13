@@ -56,8 +56,14 @@ func _is_closed_loop() -> bool:
 
 # -------------------------------------------------------------------------------------------------
 func _can_move(direction: int, mirrored_direction: int) -> bool:
-	var p1 := _can_move_to(_player.dry_move(direction))
-	var p2 := _can_move_to(_player_mirrored.dry_move(mirrored_direction))
+	var move_pos := _player.dry_move(direction)
+	var mirrored_move_pos := _player_mirrored.dry_move(mirrored_direction)
+	if move_pos == mirrored_move_pos:
+		return false
+	
+	var p1 := _can_move_to(move_pos)
+	var p2 := _can_move_to(mirrored_move_pos)
+	
 	return p1 && p2
 
 # -------------------------------------------------------------------------------------------------
