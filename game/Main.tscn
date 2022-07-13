@@ -1,0 +1,179 @@
+[gd_scene load_steps=18 format=2]
+
+[ext_resource path="res://Levels/Level_1.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Main.gd" type="Script" id=2]
+[ext_resource path="res://Utils/Camera.gd" type="Script" id=3]
+[ext_resource path="res://Assets/star.png" type="Texture" id=4]
+[ext_resource path="res://Assets/nebula.png" type="Texture" id=5]
+[ext_resource path="res://Assets/godot.png" type="Texture" id=6]
+[ext_resource path="res://Assets/wild.png" type="Texture" id=7]
+[ext_resource path="res://Assets/Fonts/font_credits.tres" type="DynamicFont" id=8]
+[ext_resource path="res://Assets/Fonts/font_title.tres" type="DynamicFont" id=9]
+[ext_resource path="res://Assets/Music/Temple-by-the-sea.ogg" type="AudioStream" id=10]
+[ext_resource path="res://Assets/game_env.tres" type="Environment" id=11]
+
+[sub_resource type="Animation" id=7]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:volume_db")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ -80.0 ]
+}
+
+[sub_resource type="Animation" id=8]
+resource_name = "fadein"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:volume_db")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ -80.0, -10.0 ]
+}
+
+[sub_resource type="Curve" id=5]
+min_value = -360.0
+max_value = 360.0
+_data = [ Vector2( 0, 360 ), 0.0, 0.0, 0, 0, Vector2( 1, 265.345 ), -226.335, 0.0, 0, 0 ]
+
+[sub_resource type="Curve" id=2]
+_data = [ Vector2( 0, 0.5 ), 0.0, 0.0, 0, 0, Vector2( 0.513393, 1 ), 0.0, 0.0, 0, 0, Vector2( 1, 0.217672 ), -0.0438871, 0.0, 0, 0 ]
+
+[sub_resource type="Gradient" id=3]
+offsets = PoolRealArray( 0, 0.230769, 0.512821, 1 )
+colors = PoolColorArray( 0.054902, 0.164706, 0.4, 0, 0.232681, 0.863281, 0.863281, 1, 0.054902, 0.164706, 0.4, 1, 0, 0, 0, 0.54902 )
+
+[sub_resource type="Gradient" id=6]
+offsets = PoolRealArray( 0, 0.117949, 0.605128, 1 )
+colors = PoolColorArray( 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0 )
+
+[node name="Main" type="Control"]
+self_modulate = Color( 0.92549, 0.92549, 0.92549, 1 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 2 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = ExtResource( 11 )
+
+[node name="Music" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 10 )
+volume_db = -80.0
+bus = "Music"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Music"]
+autoplay = "fadein"
+anims/RESET = SubResource( 7 )
+anims/fadein = SubResource( 8 )
+
+[node name="Nebula" type="CPUParticles2D" parent="."]
+position = Vector2( 944, 558 )
+amount = 64
+lifetime = 12.0
+preprocess = 8.0
+explosiveness = 0.1
+randomness = 0.5
+lifetime_randomness = 0.2
+draw_order = 1
+texture = ExtResource( 5 )
+emission_shape = 2
+emission_rect_extents = Vector2( 1000, 600 )
+direction = Vector2( 1, 1 )
+spread = 180.0
+gravity = Vector2( 0, 0 )
+initial_velocity = 2.0
+initial_velocity_random = 1.0
+angle_curve = SubResource( 5 )
+scale_amount = 4.0
+scale_amount_curve = SubResource( 2 )
+color_ramp = SubResource( 3 )
+
+[node name="Stars" type="CPUParticles2D" parent="."]
+position = Vector2( 944, 528 )
+amount = 512
+lifetime = 8.0
+preprocess = 4.0
+texture = ExtResource( 4 )
+emission_shape = 2
+emission_rect_extents = Vector2( 1000, 600 )
+spread = 180.0
+gravity = Vector2( 0, 0 )
+initial_velocity = 20.0
+initial_velocity_random = 1.0
+orbit_velocity = -0.01
+radial_accel = 25.0
+damping = 10.0
+scale_amount = 0.02
+scale_amount_curve = SubResource( 2 )
+color_ramp = SubResource( 6 )
+
+[node name="Camera" type="Camera2D" parent="."]
+anchor_mode = 0
+current = true
+script = ExtResource( 3 )
+
+[node name="Level_1" parent="." instance=ExtResource( 1 )]
+
+[node name="Credits" type="Label" parent="."]
+margin_left = 74.0
+margin_top = 477.0
+margin_right = 276.0
+margin_bottom = 502.0
+custom_fonts/font = ExtResource( 8 )
+text = "a game by mbrlabs"
+
+[node name="Title" type="Label" parent="."]
+margin_left = 73.0
+margin_top = 61.0
+margin_right = 203.0
+margin_bottom = 460.0
+custom_fonts/font = ExtResource( 9 )
+text = "N
+E
+B
+U
+L
+A-M10"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -139.0
+margin_top = -79.0
+margin_right = -40.0
+margin_bottom = -39.0
+custom_constants/separation = 18
+
+[node name="TextureRect" type="TextureRect" parent="HBoxContainer"]
+margin_right = 39.0
+margin_bottom = 40.0
+rect_min_size = Vector2( 39, 37 )
+texture = ExtResource( 7 )
+expand = true
+stretch_mode = 5
+
+[node name="TextureRect2" type="TextureRect" parent="HBoxContainer"]
+margin_left = 57.0
+margin_right = 97.0
+margin_bottom = 40.0
+rect_min_size = Vector2( 40, 38 )
+texture = ExtResource( 6 )
+expand = true
+stretch_mode = 5
