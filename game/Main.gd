@@ -4,6 +4,9 @@ extends Control
 const LEVELS := [
 	"res://Levels/Level_1.tscn",
 	"res://Levels/Level_2.tscn",
+	"res://Levels/Level_3.tscn",
+	"res://Levels/Level_4.tscn",
+	"res://Levels/Level_5.tscn",
 ]
 
 # -------------------------------------------------------------------------------------------------
