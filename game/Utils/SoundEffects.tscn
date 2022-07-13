@@ -1,9 +1,10 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://Utils/SoundEffects.gd" type="Script" id=1]
 [ext_resource path="res://Assets/Sounds/move2.ogg" type="AudioStream" id=2]
 [ext_resource path="res://Assets/Sounds/error.ogg" type="AudioStream" id=3]
 [ext_resource path="res://Assets/Sounds/move_back.ogg" type="AudioStream" id=4]
+[ext_resource path="res://Assets/Sounds/success.ogg" type="AudioStream" id=5]
 [ext_resource path="res://Assets/Sounds/move3.ogg" type="AudioStream" id=6]
 [ext_resource path="res://Assets/Sounds/move1.ogg" type="AudioStream" id=7]
 
@@ -36,6 +37,6 @@ volume_db = -18.0
 bus = "Sound"
 
 [node name="Success" type="AudioStreamPlayer" parent="."]
-stream = ExtResource( 7 )
-volume_db = -6.0
+stream = ExtResource( 5 )
+volume_db = -2.0
 bus = "Sound"

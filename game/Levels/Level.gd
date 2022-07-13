@@ -2,9 +2,6 @@ class_name Level
 extends Control
 
 # -------------------------------------------------------------------------------------------------
-signal win_animation_finished
-
-# -------------------------------------------------------------------------------------------------
 var _env: Environment = preload("res://Assets/game_env.tres")
 onready var _tilemap: TileMap = $TileMap
 onready var _player: Player = $TileMap/Player
@@ -41,10 +38,6 @@ func move(direction: int) -> void:
 # -------------------------------------------------------------------------------------------------
 func is_moving() -> bool:
 	return _player.is_moving() || _player_mirrored.is_moving()
-
-# -------------------------------------------------------------------------------------------------
-func start_win_animation() -> void:
-	emit_signal("win_animation_finished")
 
 # -------------------------------------------------------------------------------------------------
 func is_solved() -> bool:

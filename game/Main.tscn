@@ -127,6 +127,8 @@ anchor_mode = 0
 current = true
 script = ExtResource( 3 )
 
+[node name="PuzzleSolvedTween" type="Tween" parent="."]
+
 [node name="Level_1" parent="." instance=ExtResource( 1 )]
 
 [node name="Credits" type="Label" parent="."]

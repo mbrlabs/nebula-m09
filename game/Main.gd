@@ -8,6 +8,8 @@ const LEVELS := [
 
 # -------------------------------------------------------------------------------------------------
 onready var _level: Level = $Level_1
+onready var _puzzle_solved_tween: Tween = $PuzzleSolvedTween
+onready var _env: Environment = $WorldEnvironment.environment
 var _level_done := false
 var _current_level_index := 0
 var _next_buffered_input_direction: int = Types.Direction.NONE
@@ -15,7 +17,6 @@ var _next_buffered_input_direction: int = Types.Direction.NONE
 # -------------------------------------------------------------------------------------------------
 func _ready() -> void:
 	$Music.play(10)
-	_level.connect("win_animation_finished", self, "_on_win_animation_finished")
 
 # -------------------------------------------------------------------------------------------------
 func _process(delta: float) -> void:
@@ -45,18 +46,25 @@ func _do_move() -> void:
 
 # -------------------------------------------------------------------------------------------------
 func _handle_solved_level() -> void:
-	_level.start_win_animation()
+	var glow_target := _env.glow_intensity + 3.0
+	var dur := 0.25
+	_puzzle_solved_tween.remove_all()
+	_puzzle_solved_tween.connect("tween_all_completed", self, "_on_puzzle_solved_tween_finished")
+	_puzzle_solved_tween.interpolate_property(_env, "glow_intensity", _env.glow_intensity, glow_target, dur, Tween.TRANS_CUBIC, Tween.EASE_OUT)
+	_puzzle_solved_tween.interpolate_property(_env, "glow_intensity", glow_target, _env.glow_intensity, dur*1.2, Tween.TRANS_CUBIC, Tween.EASE_IN, dur*1.5)
+	_puzzle_solved_tween.start()
 	SoundEffects.success()
 
 # -------------------------------------------------------------------------------------------------
-func _on_win_animation_finished() -> void:
+func _on_puzzle_solved_tween_finished() -> void:
+	yield(get_tree().create_timer(0.1), "timeout")
+	_puzzle_solved_tween.disconnect("tween_all_completed", self, "_on_puzzle_solved_tween_finished")
 	if _current_level_index + 1 < LEVELS.size():
 		_current_level_index += 1
 		_level.queue_free()
 		_level = load(LEVELS[_current_level_index]).instance()
 		_level_done = false
 		add_child(_level)
-		_level.connect("win_animation_finished", self, "_on_win_animation_finished")
 		print("Loading new level...")
 	else:
 		# TODO: show game over text
