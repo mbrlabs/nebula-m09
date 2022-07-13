@@ -3,6 +3,7 @@ extends Control
 # -------------------------------------------------------------------------------------------------
 const LEVELS := [
 	"res://Levels/Level_1.tscn",
+	"res://Levels/Level_10.tscn",
 	"res://Levels/Level_2.tscn",
 	"res://Levels/Level_3.tscn",
 	"res://Levels/Level_4.tscn",
@@ -13,6 +14,7 @@ const LEVELS := [
 onready var _level: Level = $Level_1
 onready var _puzzle_solved_tween: Tween = $PuzzleSolvedTween
 onready var _env: Environment = $WorldEnvironment.environment
+onready var _camera: Camera2D = $Camera
 var _level_done := false
 var _current_level_index := 0
 var _next_buffered_input_direction: int = Types.Direction.NONE
@@ -49,13 +51,14 @@ func _do_move() -> void:
 
 # -------------------------------------------------------------------------------------------------
 func _handle_solved_level() -> void:
-	var glow_target := _env.glow_intensity + 3.0
+	var glow_target := _env.glow_intensity + 3
 	var dur := 0.25
 	_puzzle_solved_tween.remove_all()
 	_puzzle_solved_tween.connect("tween_all_completed", self, "_on_puzzle_solved_tween_finished")
 	_puzzle_solved_tween.interpolate_property(_env, "glow_intensity", _env.glow_intensity, glow_target, dur, Tween.TRANS_CUBIC, Tween.EASE_OUT)
 	_puzzle_solved_tween.interpolate_property(_env, "glow_intensity", glow_target, _env.glow_intensity, dur*1.2, Tween.TRANS_CUBIC, Tween.EASE_IN, dur*1.5)
 	_puzzle_solved_tween.start()
+	_camera.shake(1.25, 0.3)
 	SoundEffects.success()
 
 # -------------------------------------------------------------------------------------------------
@@ -68,7 +71,6 @@ func _on_puzzle_solved_tween_finished() -> void:
 		_level = load(LEVELS[_current_level_index]).instance()
 		_level_done = false
 		add_child(_level)
-		print("Loading new level...")
 	else:
 		# TODO: show game over text
 		print("Game Over")
