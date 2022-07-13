@@ -58,12 +58,18 @@ func _is_closed_loop() -> bool:
 func _can_move(direction: int, mirrored_direction: int) -> bool:
 	var move_pos := _player.dry_move(direction)
 	var mirrored_move_pos := _player_mirrored.dry_move(mirrored_direction)
+	
+	# players can't move to their opposites starting position
+	if move_pos == _player_mirrored.get_tail_position() || mirrored_move_pos == _player.get_tail_position():
+		return false
+	
+	# head on collision
 	if move_pos == mirrored_move_pos:
 		return false
 	
+	# basic collisions with walls and lines, which are already there
 	var p1 := _can_move_to(move_pos)
 	var p2 := _can_move_to(mirrored_move_pos)
-	
 	return p1 && p2
 
 # -------------------------------------------------------------------------------------------------

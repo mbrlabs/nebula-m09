@@ -81,6 +81,10 @@ func get_head_position() -> Vector2:
 	return _line.to_global(head)
 
 # -------------------------------------------------------------------------------------------------
+func get_tail_position() -> Vector2:
+	return _line.to_global(_line.points[0])
+
+# -------------------------------------------------------------------------------------------------
 func indicate_failed_move(direction: int) -> void:
 	if !_move_in_progress:
 		var direction_vector := Utils.direction_to_vector(direction)
