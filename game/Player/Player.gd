@@ -46,7 +46,14 @@ func _process(delta: float) -> void:
 			color = COLOR_RED
 		if _start != null:
 			_start.self_modulate = color
-	
+
+# -------------------------------------------------------------------------------------------------
+func reset() -> void:
+	_directions.clear()
+	_line.clear_points()
+	_line.add_point(Vector2.ZERO)
+	_move_in_progress = false
+
 # -------------------------------------------------------------------------------------------------
 func is_moving() -> bool:
 	return _move_in_progress
@@ -71,13 +78,13 @@ func move(direction: int) -> void:
 # -------------------------------------------------------------------------------------------------
 func dry_move(direction: int) -> Vector2:
 	var direction_vector := Utils.direction_to_vector(direction)
-	var target := _line.points[_line.points.size() - 1]
+	var target := _line.points[_line.get_point_count() - 1]
 	target += direction_vector * MOVEMENT_STEP
 	return _line.to_global(target)
 
 # -------------------------------------------------------------------------------------------------
 func get_head_position() -> Vector2:
-	var head := _line.points[_line.points.size() - 1]
+	var head := _line.points[_line.get_point_count() - 1]
 	return _line.to_global(head)
 
 # -------------------------------------------------------------------------------------------------
@@ -89,7 +96,7 @@ func indicate_failed_move(direction: int) -> void:
 	if !_move_in_progress:
 		var direction_vector := Utils.direction_to_vector(direction)
 		var initial_offset := direction_vector * 0.25
-		var from := _line.points[_line.points.size() - 1] + initial_offset
+		var from := _line.points[_line.get_point_count() - 1] + initial_offset
 		var to := from + direction_vector * MOVEMENT_STEP_INVALID_MOVE - initial_offset
 		
 		_line.add_point(from)
@@ -111,15 +118,15 @@ func get_last_moved_direction() -> int:
 
 # -------------------------------------------------------------------------------------------------
 func is_closed_loop() -> bool:
-	if _line.points.size() < 2:
+	if _line.get_point_count() < 2:
 		return false
-	return _line.points[0] == _line.points[_line.points.size() - 1]
+	return _line.points[0] == _line.points[_line.get_point_count() - 1]
 
 # -------------------------------------------------------------------------------------------------
 func _move_forward(direction: int) -> void:
 	var direction_vector := Utils.direction_to_vector(direction)
 	var initial_offset := direction_vector
-	var from := _line.points[_line.points.size() - 1] + initial_offset
+	var from := _line.points[_line.get_point_count() - 1] + initial_offset
 	var to := from + direction_vector * MOVEMENT_STEP - initial_offset
 	emit_signal("moving_forward", _line.to_global(from), _line.to_global(to))
 	
@@ -135,8 +142,8 @@ func _move_forward(direction: int) -> void:
 
 # -------------------------------------------------------------------------------------------------
 func _move_back() -> void:
-	var from: Vector2 = _line.points[_line.points.size() - 1]
-	var to: Vector2 = _line.points[_line.points.size() - 2]
+	var from: Vector2 = _line.points[_line.get_point_count() - 1]
+	var to: Vector2 = _line.points[_line.get_point_count() - 2]
 	to += to.direction_to(from)
 	emit_signal("moving_back", _line.to_global(from), _line.to_global(to))
 
@@ -150,13 +157,13 @@ func _move_back() -> void:
 # -------------------------------------------------------------------------------------------------
 func _on_move_back_tween_done() -> void:
 	_tween.disconnect("tween_all_completed", self, "_on_move_back_tween_done")
-	_directions.remove(_directions.size()-1)
-	_line.remove_point(_line.points.size()-1)
+	_directions.remove(_directions.size() - 1)
+	_line.remove_point(_line.get_point_count() - 1)
 
 # -------------------------------------------------------------------------------------------------
 func _on_failed_move_indication_tween_done() -> void:
 	_tween.disconnect("tween_all_completed", self, "_on_failed_move_indication_tween_done")
-	_line.remove_point(_line.points.size() - 1)
+	_line.remove_point(_line.get_point_count() - 1)
 
 # -------------------------------------------------------------------------------------------------
 func _on_tween_done() -> void:
@@ -165,5 +172,5 @@ func _on_tween_done() -> void:
 
 # -------------------------------------------------------------------------------------------------
 func _set_latest_point_position(point: Vector2) -> void:
-	_line.set_point_position(_line.points.size() - 1, point)
+	_line.set_point_position(_line.get_point_count()- 1, point)
 	_head.position = point

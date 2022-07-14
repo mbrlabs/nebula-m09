@@ -44,6 +44,15 @@ func is_solved() -> bool:
 	return _are_all_gems_collected() && _is_closed_loop()
 
 # -------------------------------------------------------------------------------------------------
+func reset_level() -> void:
+	_player.reset()
+	_player_mirrored.reset()
+	_occupied_positions.clear()
+	for gem in _gems.get_children():
+		if gem is Gem:
+			gem.collected = false
+
+# -------------------------------------------------------------------------------------------------
 func _are_all_gems_collected() -> bool:
 	for gem in _gems.get_children():
 		if gem is Gem && !gem.collected:

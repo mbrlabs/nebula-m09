@@ -2,8 +2,8 @@ extends Control
 
 # -------------------------------------------------------------------------------------------------
 const LEVELS := [
-	"res://Levels/Level_1.tscn",
 	"res://Levels/Level_10.tscn",
+	"res://Levels/Level_1.tscn",
 	"res://Levels/Level_2.tscn",
 	"res://Levels/Level_3.tscn",
 	"res://Levels/Level_4.tscn",
@@ -11,10 +11,10 @@ const LEVELS := [
 ]
 
 # -------------------------------------------------------------------------------------------------
-onready var _level: Level = $Level_1
 onready var _puzzle_solved_tween: Tween = $PuzzleSolvedTween
 onready var _env: Environment = $WorldEnvironment.environment
 onready var _camera: Camera2D = $Camera
+var _level: Level
 var _level_done := false
 var _current_level_index := 0
 var _next_buffered_input_direction: int = Types.Direction.NONE
@@ -22,6 +22,7 @@ var _next_buffered_input_direction: int = Types.Direction.NONE
 # -------------------------------------------------------------------------------------------------
 func _ready() -> void:
 	$Music.play(10)
+	_load_level(LEVELS[0])
 
 # -------------------------------------------------------------------------------------------------
 func _process(delta: float) -> void:
@@ -34,6 +35,9 @@ func _process(delta: float) -> void:
 	
 	if OS.get_name() != "HTML5" && Input.is_action_just_pressed("quit"):
 		get_tree().quit()
+	
+	if Input.is_action_just_pressed("restart"):
+		_level.reset_level()
 	
 # -------------------------------------------------------------------------------------------------
 func _do_move() -> void:
@@ -67,14 +71,19 @@ func _on_puzzle_solved_tween_finished() -> void:
 	_puzzle_solved_tween.disconnect("tween_all_completed", self, "_on_puzzle_solved_tween_finished")
 	if _current_level_index + 1 < LEVELS.size():
 		_current_level_index += 1
-		_level.queue_free()
-		_level = load(LEVELS[_current_level_index]).instance()
-		_level_done = false
-		add_child(_level)
+		_load_level(LEVELS[_current_level_index])
 	else:
 		# TODO: show game over text
 		print("Game Over")
 
+# -------------------------------------------------------------------------------------------------
+func _load_level(level: String) -> void:
+	if _level != null:
+		_level.queue_free()
+	_level = load(level).instance()
+	_level_done = false
+	add_child(_level)
+	
 # -------------------------------------------------------------------------------------------------
 func _get_input_direction() -> int:
 	if Input.is_action_just_pressed("move_down"):
