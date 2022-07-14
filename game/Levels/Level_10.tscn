@@ -61,14 +61,6 @@ margin_bottom = 310.0
 custom_fonts/font = ExtResource( 3 )
 text = "LEVEL 10/10"
 
-[node name="Status" type="Label" parent="."]
-margin_left = 1616.0
-margin_top = 32.0
-margin_right = 1867.0
-margin_bottom = 78.0
-custom_fonts/font = ExtResource( 3 )
-text = "Status: done"
-
 [node name="ColorRect" type="ColorRect" parent="."]
 visible = false
 anchor_left = 0.5

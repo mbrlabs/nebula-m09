@@ -51,17 +51,9 @@ position = Vector2( 496, 304 )
 mirrored = true
 
 [node name="Level" type="Label" parent="."]
-margin_left = 1056.0
-margin_top = 326.0
-margin_right = 1258.0
-margin_bottom = 372.0
+margin_left = 1064.0
+margin_top = 328.0
+margin_right = 1266.0
+margin_bottom = 374.0
 custom_fonts/font = ExtResource( 3 )
 text = "LEVEL 5/10"
-
-[node name="Status" type="Label" parent="."]
-margin_left = 1632.0
-margin_top = 40.0
-margin_right = 1874.0
-margin_bottom = 86.0
-custom_fonts/font = ExtResource( 3 )
-text = "Status: stub"
