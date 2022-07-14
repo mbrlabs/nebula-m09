@@ -1,4 +1,4 @@
-class_name Gem
+class_name Orb
 extends Node2D
 
 var collected := false

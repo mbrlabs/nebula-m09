@@ -6,7 +6,7 @@ var _env: Environment = preload("res://Assets/game_env.tres")
 onready var _tilemap: TileMap = $TileMap
 onready var _player: Player = $TileMap/Player
 onready var _player_mirrored: Player = $TileMap/PlayerMirrored
-onready var _gems: Node = $TileMap/Gems
+onready var _orbs: Node = $TileMap/Orbs
 
 var _occupied_positions: Dictionary # Vector2 -> bool
 
@@ -41,21 +41,21 @@ func is_moving() -> bool:
 
 # -------------------------------------------------------------------------------------------------
 func is_solved() -> bool:
-	return _are_all_gems_collected() && _is_closed_loop()
+	return _are_all_orbs_collected() && _is_closed_loop()
 
 # -------------------------------------------------------------------------------------------------
-func reset_level() -> void:
+func reset() -> void:
 	_player.reset()
 	_player_mirrored.reset()
 	_occupied_positions.clear()
-	for gem in _gems.get_children():
-		if gem is Gem:
-			gem.collected = false
+	for orb in _orbs.get_children():
+		if orb is Orb:
+			orb.collected = false
 
 # -------------------------------------------------------------------------------------------------
-func _are_all_gems_collected() -> bool:
-	for gem in _gems.get_children():
-		if gem is Gem && !gem.collected:
+func _are_all_orbs_collected() -> bool:
+	for orb in _orbs.get_children():
+		if orb is Orb && !orb.collected:
 			return false
 	return true
 

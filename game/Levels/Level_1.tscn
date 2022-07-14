@@ -4,7 +4,7 @@
 [ext_resource path="res://Player/Player.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Assets/Fonts/font_level.tres" type="DynamicFont" id=3]
 [ext_resource path="res://Assets/tileset.tres" type="TileSet" id=4]
-[ext_resource path="res://Levels/Gem.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Levels/Orb.tscn" type="PackedScene" id=5]
 [ext_resource path="res://Assets/Fonts/font_tutorial.tres" type="DynamicFont" id=6]
 [ext_resource path="res://Assets/Sounds/move1.ogg" type="AudioStream" id=7]
 [ext_resource path="res://Assets/Fonts/font_tutorial_small.tres" type="DynamicFont" id=8]
@@ -129,13 +129,13 @@ cell_size = Vector2( 32, 32 )
 format = 1
 tile_data = PoolIntArray( 0, 4, 0, 1, 8, 0, 2, 8, 0, 3, 8, 0, 4, 8, 0, 5, 8, 0, 6, 8, 0, 7, 8, 0, 8, 8, 0, 9, 8, 0, 10, 8, 0, 11, 8, 0, 12, 7, 0, 65536, 8, 0, 65539, 8, 0, 65542, 8, 0, 65545, 8, 0, 65548, 8, 0, 131072, 8, 0, 131075, 8, 0, 131078, 8, 0, 131081, 8, 0, 131084, 8, 0, 196608, 8, 0, 196609, 8, 0, 196610, 8, 0, 196611, 8, 0, 196612, 8, 0, 196613, 8, 0, 196614, 8, 0, 196615, 8, 0, 196616, 8, 0, 196617, 8, 0, 196618, 8, 0, 196619, 8, 0, 196620, 8, 0, 262144, 8, 0, 262147, 8, 0, 262150, 8, 0, 262153, 8, 0, 262156, 8, 0, 327680, 8, 0, 327683, 8, 0, 327686, 8, 0, 327689, 8, 0, 327692, 8, 0, 393216, 8, 0, 393217, 8, 0, 393218, 8, 0, 393219, 8, 0, 393220, 8, 0, 393221, 8, 0, 393222, 8, 0, 393223, 8, 0, 393224, 8, 0, 393225, 8, 0, 393226, 8, 0, 393227, 8, 0, 393228, 8, 0, 458752, 8, 0, 458755, 8, 0, 458758, 8, 0, 458761, 8, 0, 458764, 8, 0, 524288, 8, 0, 524291, 8, 0, 524294, 8, 0, 524297, 8, 0, 524300, 8, 0, 589824, 5, 0, 589825, 8, 0, 589826, 8, 0, 589827, 8, 0, 589828, 8, 0, 589829, 8, 0, 589830, 8, 0, 589831, 8, 0, 589832, 8, 0, 589833, 8, 0, 589834, 8, 0, 589835, 8, 0, 589836, 6, 0 )
 
-[node name="Gems" type="Node2D" parent="TileMap"]
+[node name="Orbs" type="Node2D" parent="TileMap"]
 position = Vector2( -608, -320 )
 
-[node name="Gem" parent="TileMap/Gems" instance=ExtResource( 5 )]
+[node name="Orb" parent="TileMap/Orbs" instance=ExtResource( 5 )]
 position = Vector2( 864, 432 )
 
-[node name="Gem2" parent="TileMap/Gems" instance=ExtResource( 5 )]
+[node name="Orb2" parent="TileMap/Orbs" instance=ExtResource( 5 )]
 position = Vector2( 768, 528 )
 
 [node name="Player" parent="TileMap" instance=ExtResource( 2 )]
@@ -215,8 +215,8 @@ margin_right = 977.0
 margin_bottom = 187.0
 custom_colors/font_color = Color( 0.929412, 0.929412, 0.929412, 1 )
 custom_fonts/font = ExtResource( 8 )
-text = "Collect all gems and loop back
-to from where you came.
+text = "Collect all orbs on your way
+and finish where you started.
 
 Move with the arrow  
 keys or WASD."

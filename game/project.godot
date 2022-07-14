@@ -9,15 +9,15 @@
 config_version=4
 
 _global_script_classes=[ {
-"base": "Node2D",
-"class": "Gem",
-"language": "GDScript",
-"path": "res://Levels/Gem.gd"
-}, {
 "base": "Control",
 "class": "Level",
 "language": "GDScript",
 "path": "res://Levels/Level.gd"
+}, {
+"base": "Node2D",
+"class": "Orb",
+"language": "GDScript",
+"path": "res://Levels/Orb.gd"
 }, {
 "base": "Node2D",
 "class": "Player",
@@ -30,8 +30,8 @@ _global_script_classes=[ {
 "path": "res://Types.gd"
 } ]
 _global_script_class_icons={
-"Gem": "",
 "Level": "",
+"Orb": "",
 "Player": "",
 "Types": ""
 }

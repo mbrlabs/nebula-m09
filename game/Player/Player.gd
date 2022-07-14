@@ -53,6 +53,7 @@ func reset() -> void:
 	_line.clear_points()
 	_line.add_point(Vector2.ZERO)
 	_move_in_progress = false
+	_head.position = Vector2.ZERO
 
 # -------------------------------------------------------------------------------------------------
 func is_moving() -> bool:

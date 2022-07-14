@@ -2,8 +2,8 @@ extends Control
 
 # -------------------------------------------------------------------------------------------------
 const LEVELS := [
-	"res://Levels/Level_10.tscn",
 	"res://Levels/Level_1.tscn",
+	"res://Levels/Level_10.tscn",
 	"res://Levels/Level_2.tscn",
 	"res://Levels/Level_3.tscn",
 	"res://Levels/Level_4.tscn",
@@ -37,7 +37,8 @@ func _process(delta: float) -> void:
 		get_tree().quit()
 	
 	if Input.is_action_just_pressed("restart"):
-		_level.reset_level()
+		SoundEffects.impact()
+		_level.reset()
 	
 # -------------------------------------------------------------------------------------------------
 func _do_move() -> void:
