@@ -1,0 +1,53 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://Assets/Fonts/font_tip.tres" type="DynamicFont" id=1]
+[ext_resource path="res://Tips.gd" type="Script" id=2]
+
+[node name="Tips" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 2 )
+
+[node name="Tip1" type="Label" parent="."]
+modulate = Color( 1, 1, 1, 0 )
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -518.5
+margin_top = -100.0
+margin_right = 518.5
+margin_bottom = -54.0
+custom_fonts/font = ExtResource( 1 )
+text = "Tip: the most obvious way is not always to right way"
+align = 2
+
+[node name="Tip2" type="Label" parent="."]
+modulate = Color( 1, 1, 1, 0 )
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -486.5
+margin_top = -100.0
+margin_right = 486.5
+margin_bottom = -54.0
+custom_fonts/font = ExtResource( 1 )
+text = "Tip: if it doesn't work horizontally, try it vertically"
+align = 2
+
+[node name="Tip3" type="Label" parent="."]
+modulate = Color( 1, 1, 1, 0 )
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -439.5
+margin_top = -100.0
+margin_right = 439.5
+margin_bottom = -54.0
+custom_fonts/font = ExtResource( 1 )
+text = "Tip: try changing your perspective on things"
+align = 2
+
+[node name="Tween" type="Tween" parent="."]

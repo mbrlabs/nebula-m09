@@ -15,6 +15,7 @@ const LEVELS := [
 onready var _puzzle_solved_tween: Tween = $PuzzleSolvedTween
 onready var _env: Environment = $WorldEnvironment.environment
 onready var _camera: Camera2D = $Camera
+onready var _tip_timer: Timer = $TipTimer
 var _level: Level
 var _level_done := false
 var _current_level_index := 0
@@ -27,6 +28,7 @@ func _ready() -> void:
 
 # -------------------------------------------------------------------------------------------------
 func _process(delta: float) -> void:
+	print(_tip_timer.time_left)
 	if !_level_done:
 		if _level.is_solved():
 			_level_done = true
@@ -74,6 +76,8 @@ func _on_puzzle_solved_tween_finished() -> void:
 	if _current_level_index + 1 < LEVELS.size():
 		_current_level_index += 1
 		_load_level(LEVELS[_current_level_index])
+		_tip_timer.start()
+		$Tips.hide_tips()
 	else:
 		# TODO: show game over text
 		print("Game Over")
@@ -97,3 +101,7 @@ func _get_input_direction() -> int:
 	if Input.is_action_just_pressed("move_right"):
 		return Types.Direction.RIGHT
 	return Types.Direction.NONE
+
+# -------------------------------------------------------------------------------------------------
+func _on_TipTimer_timeout() -> void:
+	$Tips.show_tip()

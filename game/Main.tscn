@@ -1,5 +1,6 @@
-[gd_scene load_steps=17 format=2]
+[gd_scene load_steps=18 format=2]
 
+[ext_resource path="res://Tips.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Main.gd" type="Script" id=2]
 [ext_resource path="res://Utils/Camera.gd" type="Script" id=3]
 [ext_resource path="res://Assets/star.png" type="Texture" id=4]
@@ -147,20 +148,20 @@ E
 B
 U
 L
-A-M07"
+A-M09"
 
-[node name="HBoxContainer" type="HBoxContainer" parent="."]
+[node name="Logos" type="HBoxContainer" parent="."]
 anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = -139.0
-margin_top = -79.0
-margin_right = -40.0
-margin_bottom = -39.0
+margin_left = -156.0
+margin_top = -88.0
+margin_right = -57.0
+margin_bottom = -48.0
 custom_constants/separation = 18
 
-[node name="TextureRect" type="TextureRect" parent="HBoxContainer"]
+[node name="TextureRect" type="TextureRect" parent="Logos"]
 margin_right = 39.0
 margin_bottom = 40.0
 rect_min_size = Vector2( 39, 37 )
@@ -168,7 +169,7 @@ texture = ExtResource( 7 )
 expand = true
 stretch_mode = 5
 
-[node name="TextureRect2" type="TextureRect" parent="HBoxContainer"]
+[node name="TextureRect2" type="TextureRect" parent="Logos"]
 margin_left = 57.0
 margin_right = 97.0
 margin_bottom = 40.0
@@ -176,3 +177,12 @@ rect_min_size = Vector2( 40, 38 )
 texture = ExtResource( 6 )
 expand = true
 stretch_mode = 5
+
+[node name="TipTimer" type="Timer" parent="."]
+wait_time = 45.0
+autostart = true
+
+[node name="Tips" parent="." instance=ExtResource( 1 )]
+display_time_seconds = 20
+
+[connection signal="timeout" from="TipTimer" to="." method="_on_TipTimer_timeout"]
