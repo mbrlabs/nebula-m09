@@ -1,0 +1,61 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://Levels/Level.gd" type="Script" id=1]
+[ext_resource path="res://Player/Player.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Assets/Fonts/font_level.tres" type="DynamicFont" id=3]
+[ext_resource path="res://Assets/tileset.tres" type="TileSet" id=4]
+[ext_resource path="res://Levels/Orb.tscn" type="PackedScene" id=5]
+
+[node name="Level_6" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="TileMap" type="TileMap" parent="."]
+self_modulate = Color( 0.878431, 0.878431, 0.878431, 1 )
+position = Vector2( 656, 376 )
+tile_set = ExtResource( 4 )
+cell_size = Vector2( 32, 32 )
+format = 1
+tile_data = PoolIntArray( -327683, 4, 0, -327682, 8, 0, -327681, 8, 0, -393216, 8, 0, -393215, 8, 0, -393214, 8, 0, -393213, 8, 0, -393212, 8, 0, -393211, 8, 0, -393210, 8, 0, -393209, 8, 0, -393208, 8, 0, -393207, 7, 0, -262147, 8, 0, -327680, 8, 0, -327677, 8, 0, -327674, 8, 0, -327671, 8, 0, -196611, 8, 0, -262144, 8, 0, -262141, 8, 0, -262138, 8, 0, -262135, 8, 0, -131075, 8, 0, -131074, 8, 0, -131073, 8, 0, -196608, 8, 0, -196607, 8, 0, -196606, 8, 0, -196605, 8, 0, -196604, 8, 0, -196603, 8, 0, -196602, 8, 0, -196601, 8, 0, -196600, 8, 0, -196599, 8, 0, -65539, 8, 0, -131072, 8, 0, -131066, 8, 0, -131063, 8, 0, -3, 8, 0, -65536, 8, 0, -65530, 8, 0, -65527, 8, 0, 65533, 8, 0, 65534, 8, 0, 65535, 8, 0, 0, 8, 0, 1, 8, 0, 2, 8, 0, 3, 8, 0, 4, 8, 0, 5, 8, 0, 6, 8, 0, 7, 8, 0, 8, 8, 0, 9, 8, 0, 10, 8, 0, 11, 8, 0, 12, 8, 0, 13, 8, 0, 14, 8, 0, 15, 7, 0, 131069, 8, 0, 65536, 8, 0, 65539, 8, 0, 65542, 8, 0, 65545, 8, 0, 65548, 8, 0, 65551, 8, 0, 196605, 8, 0, 131072, 8, 0, 131075, 8, 0, 131078, 8, 0, 131081, 8, 0, 131084, 8, 0, 131087, 8, 0, 262141, 5, 0, 262142, 8, 0, 262143, 8, 0, 196608, 8, 0, 196609, 8, 0, 196610, 8, 0, 196611, 8, 0, 196612, 8, 0, 196613, 8, 0, 196614, 8, 0, 196615, 8, 0, 196616, 8, 0, 196617, 8, 0, 196618, 8, 0, 196619, 8, 0, 196620, 8, 0, 196621, 8, 0, 196622, 8, 0, 196623, 8, 0, 262147, 8, 0, 262150, 8, 0, 262153, 8, 0, 262156, 8, 0, 262159, 8, 0, 327683, 8, 0, 327686, 8, 0, 327689, 8, 0, 327692, 8, 0, 327695, 8, 0, 393219, 8, 0, 393220, 8, 0, 393221, 8, 0, 393222, 8, 0, 393223, 8, 0, 393224, 8, 0, 393225, 8, 0, 393226, 8, 0, 393227, 8, 0, 393228, 8, 0, 393229, 8, 0, 393230, 8, 0, 393231, 8, 0, 393232, 8, 0, 393233, 8, 0, 393234, 8, 0, 393235, 8, 0, 393236, 8, 0, 393237, 7, 0, 458755, 8, 0, 458758, 8, 0, 458761, 8, 0, 458764, 8, 0, 458767, 8, 0, 458770, 8, 0, 458773, 8, 0, 524291, 8, 0, 524294, 8, 0, 524297, 8, 0, 524300, 8, 0, 524303, 8, 0, 524306, 8, 0, 524309, 8, 0, 589827, 5, 0, 589828, 8, 0, 589829, 8, 0, 589830, 8, 0, 589831, 8, 0, 589832, 8, 0, 589833, 8, 0, 589834, 8, 0, 589835, 8, 0, 589836, 8, 0, 589837, 8, 0, 589838, 8, 0, 589839, 8, 0, 589840, 8, 0, 589841, 8, 0, 589842, 8, 0, 589843, 8, 0, 589844, 8, 0, 589845, 8, 0, 655369, 8, 0, 655372, 8, 0, 655378, 8, 0, 655381, 8, 0, 720905, 8, 0, 720908, 8, 0, 720914, 8, 0, 720917, 8, 0, 786441, 8, 0, 786442, 8, 0, 786443, 8, 0, 786444, 8, 0, 786445, 8, 0, 786446, 8, 0, 786447, 8, 0, 786448, 8, 0, 786449, 8, 0, 786450, 8, 0, 786451, 8, 0, 786452, 8, 0, 786453, 8, 0, 851977, 8, 0, 851980, 8, 0, 851983, 8, 0, 851986, 8, 0, 851989, 8, 0, 917513, 8, 0, 917516, 8, 0, 917519, 8, 0, 917522, 8, 0, 917525, 8, 0, 983049, 5, 0, 983050, 8, 0, 983051, 8, 0, 983052, 8, 0, 983053, 8, 0, 983054, 8, 0, 983055, 8, 0, 983056, 8, 0, 983057, 8, 0, 983058, 8, 0, 983059, 8, 0, 983060, 8, 0, 983061, 6, 0 )
+
+[node name="Orbs" type="Node2D" parent="TileMap"]
+
+[node name="Orb2" parent="TileMap/Orbs" instance=ExtResource( 5 )]
+position = Vector2( 592, 352 )
+
+[node name="Orb3" parent="TileMap/Orbs" instance=ExtResource( 5 )]
+position = Vector2( 448, 400 )
+
+[node name="Orb8" parent="TileMap/Orbs" instance=ExtResource( 5 )]
+position = Vector2( 256, 208 )
+
+[node name="Orb4" parent="TileMap/Orbs" instance=ExtResource( 5 )]
+position = Vector2( -80, -128 )
+
+[node name="Orb5" parent="TileMap/Orbs" instance=ExtResource( 5 )]
+position = Vector2( 496, 64 )
+
+[node name="Orb6" parent="TileMap/Orbs" instance=ExtResource( 5 )]
+position = Vector2( 640, 208 )
+
+[node name="Orb7" parent="TileMap/Orbs" instance=ExtResource( 5 )]
+position = Vector2( 256, -176 )
+
+[node name="Player" parent="TileMap" instance=ExtResource( 2 )]
+position = Vector2( 400, 16 )
+
+[node name="PlayerMirrored" parent="TileMap" instance=ExtResource( 2 )]
+position = Vector2( 208, 304 )
+mirrored = true
+
+[node name="Level" type="Label" parent="."]
+margin_left = 1184.0
+margin_top = 512.0
+margin_right = 1386.0
+margin_bottom = 558.0
+custom_fonts/font = ExtResource( 3 )
+text = "LEVEL 6/10"

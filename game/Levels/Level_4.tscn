@@ -26,7 +26,16 @@ tile_data = PoolIntArray( -393216, 4, 0, -393215, 8, 0, -393214, 8, 0, -393213, 
 position = Vector2( -608, -320 )
 
 [node name="Orb" parent="TileMap/Orbs" instance=ExtResource( 5 )]
-position = Vector2( 960, 624 )
+position = Vector2( 720, 184 )
+
+[node name="Orb2" parent="TileMap/Orbs" instance=ExtResource( 5 )]
+position = Vector2( 768, 336 )
+
+[node name="Orb3" parent="TileMap/Orbs" instance=ExtResource( 5 )]
+position = Vector2( 672, 432 )
+
+[node name="Orb4" parent="TileMap/Orbs" instance=ExtResource( 5 )]
+position = Vector2( 960, 432 )
 
 [node name="Player" parent="TileMap" instance=ExtResource( 2 )]
 position = Vector2( 112, 204 )
