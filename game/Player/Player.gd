@@ -3,7 +3,7 @@ class_name Player
 extends Node2D
 
 # -------------------------------------------------------------------------------------------------
-const MOVEMENT_STEP := 32 * 3
+const MOVEMENT_STEP := 32
 const MOVEMENT_STEP_INVALID_MOVE := 16
 
 const COLOR_BLUE := Color("#3186ff")
@@ -60,7 +60,7 @@ func is_moving() -> bool:
 	return _move_in_progress
 
 # -------------------------------------------------------------------------------------------------
-func move(direction: int) -> void:
+func move(direction: int, steps: int = 3) -> void:
 	if !_move_in_progress:
 		# Check if we moved back
 		var mirrored_direction := Utils.mirror_direction(direction)
@@ -74,13 +74,13 @@ func move(direction: int) -> void:
 		if moved_back:
 			_move_back()
 		else:
-			_move_forward(direction)
+			_move_forward(direction, steps)
 
 # -------------------------------------------------------------------------------------------------
-func dry_move(direction: int) -> Vector2:
+func dry_move(direction: int, steps: int = 3) -> Vector2:
 	var direction_vector := Utils.direction_to_vector(direction)
 	var target := _line.points[_line.get_point_count() - 1]
-	target += direction_vector * MOVEMENT_STEP
+	target += direction_vector * steps * MOVEMENT_STEP
 	return _line.to_global(target)
 
 # -------------------------------------------------------------------------------------------------
@@ -124,11 +124,11 @@ func is_closed_loop() -> bool:
 	return _line.points[0] == _line.points[_line.get_point_count() - 1]
 
 # -------------------------------------------------------------------------------------------------
-func _move_forward(direction: int) -> void:
+func _move_forward(direction: int, steps: int) -> void:
 	var direction_vector := Utils.direction_to_vector(direction)
 	var initial_offset := direction_vector
 	var from := _line.points[_line.get_point_count() - 1] + initial_offset
-	var to := from + direction_vector * MOVEMENT_STEP - initial_offset
+	var to := from + direction_vector * steps * MOVEMENT_STEP - initial_offset
 	emit_signal("moving_forward", _line.to_global(from), _line.to_global(to))
 	
 	# Add new point
