@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=2]
+[gd_scene load_steps=22 format=2]
 
 [ext_resource path="res://Tips.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Main.gd" type="Script" id=2]
@@ -58,6 +58,61 @@ colors = PoolColorArray( 0.054902, 0.164706, 0.4, 0, 0.232681, 0.863281, 0.86328
 [sub_resource type="Gradient" id=6]
 offsets = PoolRealArray( 0, 0.117949, 0.605128, 1 )
 colors = PoolColorArray( 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0 )
+
+[sub_resource type="Shader" id=9]
+code = "shader_type canvas_item;
+
+uniform float ca_strength = 1.0;
+
+void vertex() {
+	
+}
+
+void fragment() {
+	// chromatic abberation
+	vec4 color = texture(SCREEN_TEXTURE, SCREEN_UV);
+	float shift = ca_strength / 100.0;
+	color.r = texture(SCREEN_TEXTURE, vec2(SCREEN_UV.x + shift, SCREEN_UV.y)).r;
+	color.g = texture(SCREEN_TEXTURE, SCREEN_UV).g;
+	color.b = texture(SCREEN_TEXTURE, vec2(SCREEN_UV.x - shift, SCREEN_UV.y)).b;
+	
+	COLOR = color;
+}"
+
+[sub_resource type="ShaderMaterial" id=10]
+shader = SubResource( 9 )
+shader_param/ca_strength = 0.0
+
+[sub_resource type="Animation" id=11]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:material:shader_param/ca_strength")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0.0 ]
+}
+
+[sub_resource type="Animation" id=12]
+resource_name = "chroma"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:material:shader_param/ca_strength")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ 0.0, 0.15, 0.0 ]
+}
 
 [node name="Main" type="Control"]
 self_modulate = Color( 0.92549, 0.92549, 0.92549, 1 )
@@ -179,10 +234,23 @@ expand = true
 stretch_mode = 5
 
 [node name="TipTimer" type="Timer" parent="."]
-wait_time = 45.0
+wait_time = 60.0
 autostart = true
 
 [node name="Tips" parent="." instance=ExtResource( 1 )]
-display_time_seconds = 20
+
+[node name="LevelContainer" type="Control" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="Chroma" type="ColorRect" parent="."]
+material = SubResource( 10 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 1, 1, 1, 0 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Chroma"]
+anims/RESET = SubResource( 11 )
+anims/chroma = SubResource( 12 )
 
 [connection signal="timeout" from="TipTimer" to="." method="_on_TipTimer_timeout"]

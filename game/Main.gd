@@ -16,6 +16,8 @@ onready var _puzzle_solved_tween: Tween = $PuzzleSolvedTween
 onready var _env: Environment = $WorldEnvironment.environment
 onready var _camera: Camera2D = $Camera
 onready var _tip_timer: Timer = $TipTimer
+onready var _tips: Control = $Tips
+onready var _level_container: Control = $LevelContainer
 var _level: Level
 var _level_done := false
 var _current_level_index := 0
@@ -28,7 +30,6 @@ func _ready() -> void:
 
 # -------------------------------------------------------------------------------------------------
 func _process(delta: float) -> void:
-	print(_tip_timer.time_left)
 	if !_level_done:
 		if _level.is_solved():
 			_level_done = true
@@ -56,15 +57,26 @@ func _do_move() -> void:
 		if !_level.is_moving():
 			_level.move(_next_buffered_input_direction)
 			_next_buffered_input_direction = Types.Direction.NONE
+		
+# -------------------------------------------------------------------------------------------------
+func impact_effect() -> void:
+	$Chroma/AnimationPlayer.play("chroma")
+	_camera.shake(5, 0.06)
 
 # -------------------------------------------------------------------------------------------------
 func _handle_solved_level() -> void:
 	var glow_target := _env.glow_intensity + 3
+	var bloom_target := _env.glow_bloom + 0.0005
+	
 	var dur := 0.25
+	var dur2 := dur*1.2
+	var dur_offset := dur*1.5
 	_puzzle_solved_tween.remove_all()
 	_puzzle_solved_tween.connect("tween_all_completed", self, "_on_puzzle_solved_tween_finished")
 	_puzzle_solved_tween.interpolate_property(_env, "glow_intensity", _env.glow_intensity, glow_target, dur, Tween.TRANS_CUBIC, Tween.EASE_OUT)
-	_puzzle_solved_tween.interpolate_property(_env, "glow_intensity", glow_target, _env.glow_intensity, dur*1.2, Tween.TRANS_CUBIC, Tween.EASE_IN, dur*1.5)
+	_puzzle_solved_tween.interpolate_property(_env, "glow_bloom", _env.glow_bloom, bloom_target, dur, Tween.TRANS_CUBIC, Tween.EASE_OUT)
+	_puzzle_solved_tween.interpolate_property(_env, "glow_intensity", glow_target, _env.glow_intensity, dur2, Tween.TRANS_CUBIC, Tween.EASE_IN, dur_offset)
+	_puzzle_solved_tween.interpolate_property(_env, "glow_bloom", bloom_target, _env.glow_bloom, dur2, Tween.TRANS_CUBIC, Tween.EASE_IN, dur_offset)
 	_puzzle_solved_tween.start()
 	_camera.shake(1.25, 0.3)
 	SoundEffects.success()
@@ -77,7 +89,7 @@ func _on_puzzle_solved_tween_finished() -> void:
 		_current_level_index += 1
 		_load_level(LEVELS[_current_level_index])
 		_tip_timer.start()
-		$Tips.hide_tips()
+		_tips.hide_tips()
 	else:
 		# TODO: show game over text
 		print("Game Over")
@@ -88,7 +100,7 @@ func _load_level(level: String) -> void:
 		_level.queue_free()
 	_level = load(level).instance()
 	_level_done = false
-	add_child(_level)
+	_level_container.add_child(_level)
 	
 # -------------------------------------------------------------------------------------------------
 func _get_input_direction() -> int:
@@ -104,4 +116,4 @@ func _get_input_direction() -> int:
 
 # -------------------------------------------------------------------------------------------------
 func _on_TipTimer_timeout() -> void:
-	$Tips.show_tip()
+	_tips.show_tip()

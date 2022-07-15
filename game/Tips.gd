@@ -2,7 +2,7 @@ extends Control
 
 export var display_time_seconds := 30
 
-onready var _tips := [$Tip1, $Tip2, $Tip3]
+onready var _tips := [$Tip1, $Tip2, $Tip3, $Tip4]
 onready var _tween: Tween = $Tween
 
 var _current_tip := 0

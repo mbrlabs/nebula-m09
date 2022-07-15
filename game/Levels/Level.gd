@@ -32,8 +32,8 @@ func move(direction: int) -> void:
 	else:
 		_player.indicate_failed_move(direction)
 		_player_mirrored.indicate_failed_move(mirrored_direction)
-		get_parent().get_node("Camera").shake(5, 0.06)
 		SoundEffects.impact()
+		get_parent().get_parent().impact_effect() # TODO: change to signal
 
 # -------------------------------------------------------------------------------------------------
 func is_moving() -> bool:

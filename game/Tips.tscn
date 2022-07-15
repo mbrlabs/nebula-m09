@@ -50,4 +50,18 @@ custom_fonts/font = ExtResource( 1 )
 text = "Tip: try changing your perspective on things"
 align = 2
 
+[node name="Tip4" type="Label" parent="."]
+modulate = Color( 1, 1, 1, 0 )
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -439.5
+margin_top = -100.0
+margin_right = 439.5
+margin_bottom = -54.0
+custom_fonts/font = ExtResource( 1 )
+text = "Tip: yes, all puzzles are solvable. I promise ;)"
+align = 2
+
 [node name="Tween" type="Tween" parent="."]
