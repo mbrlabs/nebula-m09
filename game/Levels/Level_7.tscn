@@ -6,7 +6,7 @@
 [ext_resource path="res://Assets/tileset.tres" type="TileSet" id=4]
 [ext_resource path="res://Orb.tscn" type="PackedScene" id=5]
 
-[node name="Level_6" type="Control"]
+[node name="Level_7" type="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 script = ExtResource( 1 )
@@ -53,7 +53,7 @@ mirrored = true
 [node name="Level" type="Label" parent="."]
 margin_left = 1080.0
 margin_top = 328.0
-margin_right = 1267.0
+margin_right = 1266.0
 margin_bottom = 374.0
 custom_fonts/font = ExtResource( 3 )
-text = "LEVEL 6/9 (TODO)"
+text = "LEVEL 7/9 (TODO)"

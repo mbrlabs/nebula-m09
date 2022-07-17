@@ -51,9 +51,9 @@ position = Vector2( 496, 304 )
 mirrored = true
 
 [node name="Level" type="Label" parent="."]
-margin_left = 1064.0
+margin_left = 1080.0
 margin_top = 328.0
 margin_right = 1266.0
 margin_bottom = 374.0
 custom_fonts/font = ExtResource( 3 )
-text = "LEVEL 5/10"
+text = "LEVEL 5/9"

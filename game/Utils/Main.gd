@@ -14,7 +14,9 @@ const LEVELS := [
 	"res://Levels/Level_4.tscn",
 	"res://Levels/Level_5.tscn",
 	"res://Levels/Level_6.tscn",
-	"res://Levels/Level_10.tscn",
+	"res://Levels/Level_7.tscn",
+	"res://Levels/Level_8.tscn",
+	"res://Levels/Level_9.tscn",
 ]
 
 # -------------------------------------------------------------------------------------------------
@@ -41,6 +43,11 @@ func _ready() -> void:
 
 # -------------------------------------------------------------------------------------------------
 func _process(delta: float) -> void:
+#	if Input.is_action_just_pressed("screenshot"):
+#		var image = get_viewport().get_texture().get_data()
+#		image.flip_y()
+#		image.save_png("E:\\nebula.png")
+	
 	if _state == State.PLAYING:
 		if !_level_done:
 			if _level.is_solved():

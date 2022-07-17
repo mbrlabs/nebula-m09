@@ -56,10 +56,10 @@ mirrored = true
 [node name="Level" type="Label" parent="."]
 margin_left = 912.0
 margin_top = 264.0
-margin_right = 1130.0
+margin_right = 1098.0
 margin_bottom = 310.0
 custom_fonts/font = ExtResource( 3 )
-text = "LEVEL 10/10"
+text = "LEVEL 9/9"
 
 [node name="ColorRect" type="ColorRect" parent="."]
 visible = false
