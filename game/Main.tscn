@@ -239,12 +239,10 @@ __meta__ = {
 anchor_top = 1.0
 anchor_bottom = 1.0
 margin_left = 72.0
-margin_top = -278.0
-margin_right = 292.0
-margin_bottom = -150.0
-__meta__ = {
-"_edit_group_": true
-}
+margin_top = -430.0
+margin_right = 299.0
+margin_bottom = -293.0
+custom_constants/separation = 12
 
 [node name="SelectLevelButton" type="Button" parent="Menu"]
 margin_right = 227.0
@@ -260,9 +258,9 @@ flat = true
 align = 0
 
 [node name="SettingsButton" type="Button" parent="Menu"]
-margin_top = 47.0
+margin_top = 55.0
 margin_right = 227.0
-margin_bottom = 90.0
+margin_bottom = 98.0
 custom_fonts/font = ExtResource( 14 )
 custom_styles/hover = SubResource( 14 )
 custom_styles/pressed = SubResource( 14 )
@@ -274,9 +272,9 @@ flat = true
 align = 0
 
 [node name="ExitButton" type="Button" parent="Menu"]
-margin_top = 94.0
+margin_top = 110.0
 margin_right = 227.0
-margin_bottom = 137.0
+margin_bottom = 153.0
 custom_fonts/font = ExtResource( 14 )
 custom_styles/hover = SubResource( 15 )
 custom_styles/pressed = SubResource( 15 )
@@ -311,6 +309,7 @@ visible = false
 visible = false
 
 [node name="FpsLabel" parent="." instance=ExtResource( 13 )]
+visible = false
 margin_left = 1750.0
 margin_top = 13.0
 margin_right = -27.0
