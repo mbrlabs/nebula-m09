@@ -4,7 +4,7 @@
 [ext_resource path="res://Player/Player.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Assets/Fonts/font_level.tres" type="DynamicFont" id=3]
 [ext_resource path="res://Assets/tileset.tres" type="TileSet" id=4]
-[ext_resource path="res://Levels/Orb.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Orb.tscn" type="PackedScene" id=5]
 [ext_resource path="res://Assets/Fonts/font_tutorial.tres" type="DynamicFont" id=6]
 [ext_resource path="res://Assets/Sounds/move1.ogg" type="AudioStream" id=7]
 [ext_resource path="res://Assets/Fonts/font_tutorial_small.tres" type="DynamicFont" id=8]
@@ -16,7 +16,7 @@
 length = 0.001
 tracks/0/type = "value"
 tracks/0/path = NodePath("You:modulate")
-tracks/0/interp = 1
+tracks/0/interp = 2
 tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -28,7 +28,7 @@ tracks/0/keys = {
 }
 tracks/1/type = "value"
 tracks/1/path = NodePath("Mimic:modulate")
-tracks/1/interp = 1
+tracks/1/interp = 2
 tracks/1/loop_wrap = true
 tracks/1/imported = false
 tracks/1/enabled = true
@@ -40,7 +40,7 @@ tracks/1/keys = {
 }
 tracks/2/type = "value"
 tracks/2/path = NodePath("Manual:modulate")
-tracks/2/interp = 1
+tracks/2/interp = 2
 tracks/2/loop_wrap = true
 tracks/2/imported = false
 tracks/2/enabled = true

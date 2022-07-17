@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=2]
+[gd_scene load_steps=24 format=2]
 
 [ext_resource path="res://Tips.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Main.gd" type="Script" id=2]
@@ -12,6 +12,7 @@
 [ext_resource path="res://Assets/Music/Temple-by-the-sea.ogg" type="AudioStream" id=10]
 [ext_resource path="res://Assets/game_env.tres" type="Environment" id=11]
 [ext_resource path="res://ThanksOverlay.tscn" type="PackedScene" id=12]
+[ext_resource path="res://Utils/FpsLabel.tscn" type="PackedScene" id=13]
 
 [sub_resource type="Animation" id=7]
 length = 0.001
@@ -255,5 +256,11 @@ anims/RESET = SubResource( 11 )
 anims/chroma = SubResource( 12 )
 
 [node name="ThanksOverlay" parent="." instance=ExtResource( 12 )]
+
+[node name="FpsLabel" parent="." instance=ExtResource( 13 )]
+margin_left = 1750.0
+margin_top = 13.0
+margin_right = -27.0
+margin_bottom = -1021.0
 
 [connection signal="timeout" from="TipTimer" to="." method="_on_TipTimer_timeout"]

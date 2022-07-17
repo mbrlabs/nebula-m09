@@ -1,0 +1,19 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://Assets/Fonts/font_tip.tres" type="DynamicFont" id=1]
+
+[sub_resource type="GDScript" id=1]
+script/source = "extends Label
+
+func _process(delta: float) -> void:
+	text = \"FPS: %d\" % Engine.get_frames_per_second()
+"
+
+[node name="FpsLabel" type="Label"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_right = -1850.0
+margin_bottom = -1034.0
+custom_fonts/font = ExtResource( 1 )
+text = "FPS: 60"
+script = SubResource( 1 )

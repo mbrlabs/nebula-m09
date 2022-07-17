@@ -17,7 +17,7 @@ _global_script_classes=[ {
 "base": "Node2D",
 "class": "Orb",
 "language": "GDScript",
-"path": "res://Levels/Orb.gd"
+"path": "res://Orb.gd"
 }, {
 "base": "Node2D",
 "class": "Player",
