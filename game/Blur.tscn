@@ -1,0 +1,44 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://Materials/mat_blur_vertical.tres" type="Material" id=1]
+[ext_resource path="res://Materials/mat_blur_horizontal.tres" type="Material" id=2]
+
+[node name="Blur" type="Control"]
+modulate = Color( 1, 1, 1, 0 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+
+[node name="Darken" type="ColorRect" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+color = Color( 0.0313726, 0.160784, 0.211765, 0.313726 )
+
+[node name="BackBufferCopyVerticalBlur" type="BackBufferCopy" parent="."]
+copy_mode = 2
+
+[node name="ColorRect" type="ColorRect" parent="BackBufferCopyVerticalBlur"]
+material = ExtResource( 1 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -244.0
+margin_top = -280.0
+margin_right = 2077.0
+margin_bottom = 1153.0
+mouse_filter = 2
+color = Color( 1, 1, 1, 0 )
+
+[node name="BackBufferCopyHorizontalBlur" type="BackBufferCopy" parent="."]
+copy_mode = 2
+
+[node name="ColorRect" type="ColorRect" parent="BackBufferCopyHorizontalBlur"]
+material = ExtResource( 2 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -268.0
+margin_top = -304.0
+margin_right = 2005.0
+margin_bottom = 1170.0
+mouse_filter = 2
+color = Color( 1, 1, 1, 0 )

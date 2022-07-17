@@ -1,7 +1,7 @@
-[gd_scene load_steps=24 format=2]
+[gd_scene load_steps=27 format=2]
 
-[ext_resource path="res://Tips.tscn" type="PackedScene" id=1]
-[ext_resource path="res://Main.gd" type="Script" id=2]
+[ext_resource path="res://UI/Tips.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Utils/Main.gd" type="Script" id=2]
 [ext_resource path="res://Utils/Camera.gd" type="Script" id=3]
 [ext_resource path="res://Assets/star.png" type="Texture" id=4]
 [ext_resource path="res://Assets/nebula.png" type="Texture" id=5]
@@ -11,9 +11,9 @@
 [ext_resource path="res://Assets/Fonts/font_title.tres" type="DynamicFont" id=9]
 [ext_resource path="res://Assets/Music/Temple-by-the-sea.ogg" type="AudioStream" id=10]
 [ext_resource path="res://Assets/game_env.tres" type="Environment" id=11]
-[ext_resource path="res://ThanksOverlay.tscn" type="PackedScene" id=12]
+[ext_resource path="res://UI/ThanksOverlay.tscn" type="PackedScene" id=12]
 [ext_resource path="res://Utils/FpsLabel.tscn" type="PackedScene" id=13]
-[ext_resource path="res://Assets/Fonts/font_tip.tres" type="DynamicFont" id=14]
+[ext_resource path="res://Assets/Fonts/font_menu.tres" type="DynamicFont" id=14]
 [ext_resource path="res://Materials/mat_chromatic_aberration.tres" type="Material" id=15]
 
 [sub_resource type="Animation" id=7]
@@ -63,6 +63,12 @@ colors = PoolColorArray( 0.054902, 0.164706, 0.4, 0, 0.232681, 0.863281, 0.86328
 offsets = PoolRealArray( 0, 0.117949, 0.605128, 1 )
 colors = PoolColorArray( 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0 )
 
+[sub_resource type="StyleBoxEmpty" id=13]
+
+[sub_resource type="StyleBoxEmpty" id=14]
+
+[sub_resource type="StyleBoxEmpty" id=15]
+
 [sub_resource type="Animation" id=11]
 length = 0.001
 tracks/0/type = "value"
@@ -100,7 +106,8 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 script = ExtResource( 2 )
 __meta__ = {
-"_edit_lock_": true
+"_edit_lock_": true,
+"_edit_vertical_guides_": [ 83.0 ]
 }
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
@@ -186,12 +193,10 @@ L
 A-M09"
 
 [node name="Logos" type="HBoxContainer" parent="."]
-anchor_top = 1.0
-anchor_bottom = 1.0
 margin_left = 76.0
-margin_top = -104.0
-margin_right = 175.0
-margin_bottom = -64.0
+margin_top = 976.0
+margin_right = 281.0
+margin_bottom = 1014.0
 custom_constants/separation = 18
 __meta__ = {
 "_edit_group_": true
@@ -199,7 +204,7 @@ __meta__ = {
 
 [node name="Wild" type="TextureRect" parent="Logos"]
 margin_right = 39.0
-margin_bottom = 40.0
+margin_bottom = 38.0
 rect_min_size = Vector2( 39, 37 )
 texture = ExtResource( 7 )
 expand = true
@@ -208,7 +213,7 @@ stretch_mode = 5
 [node name="Godot" type="TextureRect" parent="Logos"]
 margin_left = 57.0
 margin_right = 97.0
-margin_bottom = 40.0
+margin_bottom = 38.0
 rect_min_size = Vector2( 40, 38 )
 texture = ExtResource( 6 )
 expand = true
@@ -228,10 +233,63 @@ __meta__ = {
 "_edit_lock_": true
 }
 
+[node name="Menu" type="VBoxContainer" parent="."]
+anchor_top = 1.0
+anchor_bottom = 1.0
+margin_left = 72.0
+margin_top = -278.0
+margin_right = 292.0
+margin_bottom = -132.0
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="SelectLevelButton" type="Button" parent="Menu"]
+margin_right = 220.0
+margin_bottom = 40.0
+custom_fonts/font = ExtResource( 14 )
+custom_styles/hover = SubResource( 13 )
+custom_styles/pressed = SubResource( 13 )
+custom_styles/focus = SubResource( 13 )
+custom_styles/disabled = SubResource( 13 )
+custom_styles/normal = SubResource( 13 )
+text = "Select Level"
+flat = true
+align = 0
+
+[node name="SettingsButton" type="Button" parent="Menu"]
+margin_top = 44.0
+margin_right = 220.0
+margin_bottom = 84.0
+custom_fonts/font = ExtResource( 14 )
+custom_styles/hover = SubResource( 14 )
+custom_styles/pressed = SubResource( 14 )
+custom_styles/focus = SubResource( 14 )
+custom_styles/disabled = SubResource( 14 )
+custom_styles/normal = SubResource( 14 )
+text = "Settings"
+flat = true
+align = 0
+
+[node name="ExitButton" type="Button" parent="Menu"]
+margin_top = 88.0
+margin_right = 220.0
+margin_bottom = 128.0
+custom_fonts/font = ExtResource( 14 )
+custom_styles/hover = SubResource( 15 )
+custom_styles/pressed = SubResource( 15 )
+custom_styles/focus = SubResource( 15 )
+custom_styles/disabled = SubResource( 15 )
+custom_styles/normal = SubResource( 15 )
+text = "Exit"
+flat = true
+align = 0
+
 [node name="Chroma" type="ColorRect" parent="."]
 material = ExtResource( 15 )
 anchor_right = 1.0
 anchor_bottom = 1.0
+mouse_filter = 2
 color = Color( 1, 1, 1, 0 )
 __meta__ = {
 "_edit_group_": true,
@@ -251,16 +309,5 @@ margin_top = 13.0
 margin_right = -27.0
 margin_bottom = -1021.0
 
-[node name="ExitButton" type="Button" parent="."]
-anchor_left = 1.0
-anchor_right = 1.0
-margin_left = -274.0
-margin_top = 55.0
-margin_right = -69.0
-margin_bottom = 107.0
-custom_fonts/font = ExtResource( 14 )
-text = "Exit Game"
-flat = true
-
 [connection signal="timeout" from="TipTimer" to="." method="_on_TipTimer_timeout"]
-[connection signal="pressed" from="ExitButton" to="." method="_on_ExitButton_pressed"]
+[connection signal="pressed" from="Menu/ExitButton" to="." method="_on_ExitButton_pressed"]

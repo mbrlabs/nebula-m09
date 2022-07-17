@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://Assets/Fonts/font_tip.tres" type="DynamicFont" id=1]
-[ext_resource path="res://Tips.gd" type="Script" id=2]
+[ext_resource path="res://UI/Tips.gd" type="Script" id=2]
 
 [node name="Tips" type="Control"]
 anchor_right = 1.0

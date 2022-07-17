@@ -33,7 +33,7 @@ var _next_buffered_input_direction: int = Types.Direction.NONE
 # -------------------------------------------------------------------------------------------------
 func _ready() -> void:
 	if OS.get_name() == "HTML5":
-		$ExitButton.hide()
+		$Menu/ExitButton.disabled = true
 		
 	$Music.play(10)
 	_load_level(LEVELS[0])
