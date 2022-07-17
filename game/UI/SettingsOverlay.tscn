@@ -1,12 +1,122 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://UI/SettingsOverlay.gd" type="Script" id=1]
-[ext_resource path="res://Blur.tscn" type="PackedScene" id=2]
+[ext_resource path="res://UI/Blur.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Assets/Fonts/font_title.tres" type="DynamicFont" id=3]
+[ext_resource path="res://Assets/Fonts/font_tip.tres" type="DynamicFont" id=4]
+[ext_resource path="res://UI/style_slider.tres" type="StyleBox" id=5]
+[ext_resource path="res://UI/style_slider_grabber_area.tres" type="StyleBox" id=6]
+[ext_resource path="res://Assets/grabber.png" type="Texture" id=7]
+
+[sub_resource type="StyleBoxEmpty" id=1]
 
 [node name="SettingsOverlay" type="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 mouse_filter = 2
 script = ExtResource( 1 )
+__meta__ = {
+"_edit_vertical_guides_": [ 279.0, 1652.0 ]
+}
 
 [node name="Blur" parent="." instance=ExtResource( 2 )]
+modulate = Color( 1, 1, 1, 1 )
+
+[node name="Title" type="Label" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -679.0
+margin_top = -289.0
+margin_right = -399.0
+margin_bottom = -225.0
+custom_fonts/font = ExtResource( 3 )
+text = "Settings"
+
+[node name="Sound" type="VBoxContainer" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -683.5
+margin_top = -110.0
+margin_right = 683.5
+margin_bottom = -26.0
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="SoundSlider" type="HSlider" parent="Sound"]
+margin_right = 1367.0
+margin_bottom = 32.0
+rect_min_size = Vector2( 0, 32 )
+custom_icons/grabber_disabled = ExtResource( 7 )
+custom_icons/grabber_highlight = ExtResource( 7 )
+custom_icons/grabber = ExtResource( 7 )
+custom_styles/slider = ExtResource( 5 )
+custom_styles/grabber_area_highlight = ExtResource( 6 )
+custom_styles/grabber_area = ExtResource( 6 )
+max_value = 1.0
+step = 0.01
+
+[node name="Label" type="Label" parent="Sound"]
+margin_top = 36.0
+margin_right = 1367.0
+margin_bottom = 82.0
+custom_fonts/font = ExtResource( 4 )
+text = "Sound Volume"
+
+[node name="Music" type="VBoxContainer" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -683.5
+margin_top = 4.0
+margin_right = 683.5
+margin_bottom = 88.0
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="MusicSlider" type="HSlider" parent="Music"]
+margin_right = 1367.0
+margin_bottom = 32.0
+custom_icons/grabber_disabled = ExtResource( 7 )
+custom_icons/grabber_highlight = ExtResource( 7 )
+custom_icons/grabber = ExtResource( 7 )
+custom_styles/slider = ExtResource( 5 )
+custom_styles/grabber_area_highlight = ExtResource( 6 )
+custom_styles/grabber_area = ExtResource( 6 )
+max_value = 1.0
+step = 0.01
+
+[node name="Label" type="Label" parent="Music"]
+margin_top = 36.0
+margin_right = 1367.0
+margin_bottom = 82.0
+custom_fonts/font = ExtResource( 4 )
+text = "Music Volume"
+
+[node name="BackButton" type="Button" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -683.0
+margin_top = 132.0
+margin_right = -590.0
+margin_bottom = 178.0
+custom_fonts/font = ExtResource( 4 )
+custom_styles/hover = SubResource( 1 )
+custom_styles/pressed = SubResource( 1 )
+custom_styles/focus = SubResource( 1 )
+custom_styles/disabled = SubResource( 1 )
+custom_styles/normal = SubResource( 1 )
+text = "Back"
+flat = true
+
+[connection signal="value_changed" from="Sound/SoundSlider" to="." method="_on_SoundSlider_value_changed"]
+[connection signal="value_changed" from="Music/MusicSlider" to="." method="_on_MusicSlider_value_changed"]
+[connection signal="pressed" from="BackButton" to="." method="_on_BackButton_pressed"]

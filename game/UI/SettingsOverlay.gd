@@ -1,16 +1,27 @@
 extends Control
 
-
-# Declare member variables here. Examples:
-# var a: int = 2
-# var b: String = "text"
-
-
-# Called when the node enters the scene tree for the first time.
+# -------------------------------------------------------------------------------------------------
 func _ready() -> void:
-	pass # Replace with function body.
+	$Sound/SoundSlider.value = _get_bus_volume("Sound")
+	$Music/MusicSlider.value = _get_bus_volume("Music")
 
+# -------------------------------------------------------------------------------------------------
+func _on_BackButton_pressed() -> void:
+	SoundEffects.move()
+	hide()
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta: float) -> void:
-#	pass
+# -------------------------------------------------------------------------------------------------
+func _on_SoundSlider_value_changed(value: float) -> void:
+	_change_bus_volume("Sound", value)
+
+# -------------------------------------------------------------------------------------------------
+func _on_MusicSlider_value_changed(value: float) -> void:
+	_change_bus_volume("Music", value)
+
+# -------------------------------------------------------------------------------------------------
+func _change_bus_volume(bus: String, value: float) -> void:
+	AudioServer.set_bus_volume_db(AudioServer.get_bus_index(bus), linear2db(value))
+
+# -------------------------------------------------------------------------------------------------
+func _get_bus_volume(bus: String) -> float:
+	return db2linear(AudioServer.get_bus_volume_db(AudioServer.get_bus_index(bus)))
