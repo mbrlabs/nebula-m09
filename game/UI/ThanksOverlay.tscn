@@ -1,6 +1,7 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://UI/Blur.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Assets/Sounds/gong.ogg" type="AudioStream" id=2]
 [ext_resource path="res://Assets/Fonts/font_thanks.tres" type="DynamicFont" id=3]
 [ext_resource path="res://Assets/Fonts/font_tip.tres" type="DynamicFont" id=4]
 [ext_resource path="res://UI/ThanksOverlay.gd" type="Script" id=5]
@@ -102,5 +103,9 @@ text = "(Press any key to restart)"
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/RESET = SubResource( 2 )
 anims/fade_in = SubResource( 1 )
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 2 )
+bus = "Sound"
 
 [editable path="Blur"]

@@ -6,7 +6,7 @@
 [ext_resource path="res://Assets/tileset.tres" type="TileSet" id=4]
 [ext_resource path="res://Orb.tscn" type="PackedScene" id=5]
 
-[node name="Level_10" type="Control"]
+[node name="Level_9" type="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 script = ExtResource( 1 )
