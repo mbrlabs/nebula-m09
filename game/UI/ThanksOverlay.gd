@@ -1,6 +1,7 @@
 extends Control
 
+# -------------------------------------------------------------------------------------------------
 func fade_in() -> void:
-	$Background.show()
+	$Blur.show()
 	$Text.show()
 	$AnimationPlayer.play("fade_in")

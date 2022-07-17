@@ -6,6 +6,11 @@ func _ready() -> void:
 	$Music/MusicSlider.value = _get_bus_volume("Music")
 
 # -------------------------------------------------------------------------------------------------
+func _process(delta: float) -> void:
+	if visible && Input.is_action_just_pressed("close_overlay"):
+		hide()
+
+# -------------------------------------------------------------------------------------------------
 func _on_BackButton_pressed() -> void:
 	SoundEffects.move()
 	hide()

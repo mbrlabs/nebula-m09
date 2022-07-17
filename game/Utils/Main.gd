@@ -25,6 +25,7 @@ onready var _tip_timer: Timer = $TipTimer
 onready var _tips: Control = $Tips
 onready var _level_container: Control = $LevelContainer
 var _state: int = State.PLAYING
+var _solved_levels_indices := {} # int -> bool
 var _level: Level
 var _level_done := false
 var _current_level_index := 0
@@ -98,15 +99,28 @@ func _handle_solved_level() -> void:
 func _on_puzzle_solved_tween_finished() -> void:
 	yield(get_tree().create_timer(0.1), "timeout")
 	_puzzle_solved_tween.disconnect("tween_all_completed", self, "_on_puzzle_solved_tween_finished")
-	if _current_level_index + 1 < LEVELS.size():
-		_current_level_index += 1
+	
+	_solved_levels_indices[_current_level_index] = true
+	$LevelSelectOverlay.set_solved(_current_level_index + 1)
+	
+	if _solved_levels_indices.size() == LEVELS.size():
+		yield(get_tree().create_timer(0.25), "timeout")
+		_state = State.DONE
+		$ThanksOverlay.fade_in() 
+	else:
+		_increment_to_next_level()
 		_load_level(LEVELS[_current_level_index])
 		_tip_timer.start()
 		_tips.hide_tips()
-	else:
-		yield(get_tree().create_timer(0.25), "timeout")
-		_state = State.DONE
-		$ThanksOverlay.fade_in()
+
+# -------------------------------------------------------------------------------------------------
+func _increment_to_next_level() -> void:
+	while true:
+		_current_level_index += 1
+		if _current_level_index >= LEVELS.size():
+			_current_level_index = 0
+		if !_solved_levels_indices.has(_current_level_index):
+			break
 
 # -------------------------------------------------------------------------------------------------
 func _load_level(level: String) -> void:
@@ -145,3 +159,10 @@ func _on_SettingsButton_pressed() -> void:
 func _on_SelectLevelButton_pressed() -> void:
 	$LevelSelectOverlay.show()
 	SoundEffects.move()
+
+# -------------------------------------------------------------------------------------------------
+func _on_LevelSelectOverlay_level_selected(num: int) -> void:
+	var index := num - 1
+	if index < LEVELS.size():
+		_current_level_index = index
+		_load_level(LEVELS[index])

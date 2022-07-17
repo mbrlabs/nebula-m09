@@ -321,3 +321,4 @@ margin_bottom = -1021.0
 [connection signal="pressed" from="Menu/SelectLevelButton" to="." method="_on_SelectLevelButton_pressed"]
 [connection signal="pressed" from="Menu/SettingsButton" to="." method="_on_SettingsButton_pressed"]
 [connection signal="pressed" from="Menu/ExitButton" to="." method="_on_ExitButton_pressed"]
+[connection signal="level_selected" from="LevelSelectOverlay" to="." method="_on_LevelSelectOverlay_level_selected"]
