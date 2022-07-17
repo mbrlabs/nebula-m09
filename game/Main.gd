@@ -32,6 +32,9 @@ var _next_buffered_input_direction: int = Types.Direction.NONE
 
 # -------------------------------------------------------------------------------------------------
 func _ready() -> void:
+	if OS.get_name() == "HTML5":
+		$ExitButton.hide()
+		
 	$Music.play(10)
 	_load_level(LEVELS[0])
 
@@ -44,9 +47,6 @@ func _process(delta: float) -> void:
 				_handle_solved_level()
 			else:
 				_do_move()
-		
-		if OS.get_name() != "HTML5" && Input.is_action_just_pressed("quit"):
-			get_tree().quit()
 		
 		if Input.is_action_just_pressed("restart"):
 			SoundEffects.impact()
@@ -131,3 +131,7 @@ func _get_input_direction() -> int:
 # -------------------------------------------------------------------------------------------------
 func _on_TipTimer_timeout() -> void:
 	_tips.show_tip()
+
+# -------------------------------------------------------------------------------------------------
+func _on_ExitButton_pressed() -> void:
+	get_tree().quit()
