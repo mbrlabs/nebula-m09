@@ -1,13 +1,19 @@
 extends Control
 
 # -------------------------------------------------------------------------------------------------
+enum State {
+	PLAYING,
+	DONE,
+}
+
+# -------------------------------------------------------------------------------------------------
 const LEVELS := [
-#	"res://Levels/Level_1.tscn",
-#	"res://Levels/Level_2.tscn",
-#	"res://Levels/Level_3.tscn",
-#	"res://Levels/Level_4.tscn",
-#	"res://Levels/Level_5.tscn",
-#	"res://Levels/Level_6.tscn",
+	"res://Levels/Level_1.tscn",
+	"res://Levels/Level_2.tscn",
+	"res://Levels/Level_3.tscn",
+	"res://Levels/Level_4.tscn",
+	"res://Levels/Level_5.tscn",
+	"res://Levels/Level_6.tscn",
 	"res://Levels/Level_10.tscn",
 ]
 
@@ -18,6 +24,7 @@ onready var _camera: Camera2D = $Camera
 onready var _tip_timer: Timer = $TipTimer
 onready var _tips: Control = $Tips
 onready var _level_container: Control = $LevelContainer
+var _state: int = State.PLAYING
 var _level: Level
 var _level_done := false
 var _current_level_index := 0
@@ -30,20 +37,26 @@ func _ready() -> void:
 
 # -------------------------------------------------------------------------------------------------
 func _process(delta: float) -> void:
-	if !_level_done:
-		if _level.is_solved():
-			_level_done = true
-			_handle_solved_level()
-		else:
-			_do_move()
+	if _state == State.PLAYING:
+		if !_level_done:
+			if _level.is_solved():
+				_level_done = true
+				_handle_solved_level()
+			else:
+				_do_move()
+		
+		if OS.get_name() != "HTML5" && Input.is_action_just_pressed("quit"):
+			get_tree().quit()
+		
+		if Input.is_action_just_pressed("restart"):
+			SoundEffects.impact()
+			_level.reset()
 	
-	if OS.get_name() != "HTML5" && Input.is_action_just_pressed("quit"):
-		get_tree().quit()
-	
-	if Input.is_action_just_pressed("restart"):
-		SoundEffects.impact()
-		_level.reset()
-	
+# -------------------------------------------------------------------------------------------------
+func _input(event: InputEvent) -> void:
+	if _state == State.DONE && event is InputEventKey:
+		get_tree().reload_current_scene()
+
 # -------------------------------------------------------------------------------------------------
 func _do_move() -> void:
 	var direction := _get_input_direction()
@@ -91,8 +104,9 @@ func _on_puzzle_solved_tween_finished() -> void:
 		_tip_timer.start()
 		_tips.hide_tips()
 	else:
-		# TODO: show game over text
-		print("Game Over")
+		yield(get_tree().create_timer(0.25), "timeout")
+		_state = State.DONE
+		$ThanksOverlay.fade_in()
 
 # -------------------------------------------------------------------------------------------------
 func _load_level(level: String) -> void:

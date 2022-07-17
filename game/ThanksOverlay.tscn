@@ -1,38 +1,135 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://Materials/mat_blur_vertical.tres" type="Material" id=1]
 [ext_resource path="res://Materials/mat_blur_horizontal.tres" type="Material" id=2]
+[ext_resource path="res://Assets/Fonts/font_thanks.tres" type="DynamicFont" id=3]
+[ext_resource path="res://Assets/Fonts/font_tip.tres" type="DynamicFont" id=4]
+[ext_resource path="res://ThanksOverlay.gd" type="Script" id=5]
+
+[sub_resource type="Animation" id=2]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("Background:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Text:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ) ]
+}
+
+[sub_resource type="Animation" id=1]
+resource_name = "fade_in"
+length = 0.6
+tracks/0/type = "value"
+tracks/0/path = NodePath("Background:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.3 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Text:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.3, 0.6 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
+}
 
 [node name="ThanksOverlay" type="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
+script = ExtResource( 5 )
 
-[node name="BackBufferCopy" type="BackBufferCopy" parent="."]
+[node name="Background" type="Control" parent="."]
+modulate = Color( 1, 1, 1, 0 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="Darken" type="ColorRect" parent="Background"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0.0313726, 0.160784, 0.211765, 0.313726 )
+
+[node name="BackBufferCopyVerticalBlur" type="BackBufferCopy" parent="Background"]
 copy_mode = 2
 
-[node name="Blur" type="ColorRect" parent="BackBufferCopy"]
-material = ExtResource( 2 )
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-margin_left = -108.0
-margin_top = -107.0
-margin_right = 1835.0
-margin_bottom = 995.0
-color = Color( 1, 1, 1, 0 )
-
-[node name="BackBufferCopy2" type="BackBufferCopy" parent="."]
-copy_mode = 2
-
-[node name="Blur" type="ColorRect" parent="BackBufferCopy2"]
+[node name="ColorRect" type="ColorRect" parent="Background/BackBufferCopyVerticalBlur"]
 material = ExtResource( 1 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -244.0
+margin_top = -280.0
+margin_right = 2077.0
+margin_bottom = 1153.0
+color = Color( 1, 1, 1, 0 )
+
+[node name="BackBufferCopyHorizontalBlur" type="BackBufferCopy" parent="Background"]
+copy_mode = 2
+
+[node name="ColorRect" type="ColorRect" parent="Background/BackBufferCopyHorizontalBlur"]
+material = ExtResource( 2 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -268.0
+margin_top = -304.0
+margin_right = 2005.0
+margin_bottom = 1170.0
+color = Color( 1, 1, 1, 0 )
+
+[node name="Text" type="VBoxContainer" parent="."]
+modulate = Color( 1, 1, 1, 0 )
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -107.0
-margin_top = -115.0
-margin_right = 1831.0
-margin_bottom = 993.0
-color = Color( 1, 1, 1, 0 )
+margin_left = -489.0
+margin_top = -72.5
+margin_right = 489.0
+margin_bottom = 72.5
+custom_constants/separation = 16
+alignment = 1
+
+[node name="Label" type="Label" parent="Text"]
+margin_right = 1041.0
+margin_bottom = 95.0
+custom_fonts/font = ExtResource( 3 )
+text = "Thanks for playing! <3"
+
+[node name="Label2" type="Label" parent="Text"]
+margin_left = 270.0
+margin_top = 111.0
+margin_right = 770.0
+margin_bottom = 157.0
+size_flags_horizontal = 4
+custom_fonts/font = ExtResource( 4 )
+text = "(Press any key to restart)"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/RESET = SubResource( 2 )
+anims/fade_in = SubResource( 1 )
