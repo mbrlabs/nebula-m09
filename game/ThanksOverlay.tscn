@@ -1,0 +1,38 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://Materials/mat_blur_vertical.tres" type="Material" id=1]
+[ext_resource path="res://Materials/mat_blur_horizontal.tres" type="Material" id=2]
+
+[node name="ThanksOverlay" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="BackBufferCopy" type="BackBufferCopy" parent="."]
+copy_mode = 2
+
+[node name="Blur" type="ColorRect" parent="BackBufferCopy"]
+material = ExtResource( 2 )
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -108.0
+margin_top = -107.0
+margin_right = 1835.0
+margin_bottom = 995.0
+color = Color( 1, 1, 1, 0 )
+
+[node name="BackBufferCopy2" type="BackBufferCopy" parent="."]
+copy_mode = 2
+
+[node name="Blur" type="ColorRect" parent="BackBufferCopy2"]
+material = ExtResource( 1 )
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -107.0
+margin_top = -115.0
+margin_right = 1831.0
+margin_bottom = 993.0
+color = Color( 1, 1, 1, 0 )
