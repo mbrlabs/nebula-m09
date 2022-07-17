@@ -1,0 +1,52 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://UI/LevelSelectOverlay.gd" type="Script" id=1]
+[ext_resource path="res://UI/Blur.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Assets/Fonts/font_title.tres" type="DynamicFont" id=3]
+[ext_resource path="res://Assets/Fonts/font_tip.tres" type="DynamicFont" id=4]
+
+[sub_resource type="StyleBoxEmpty" id=1]
+
+[node name="LevelSelectOverlay" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_vertical_guides_": [ 279.0, 1652.0 ]
+}
+
+[node name="Blur" parent="." instance=ExtResource( 2 )]
+modulate = Color( 1, 1, 1, 1 )
+
+[node name="Title" type="Label" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -679.0
+margin_top = -289.0
+margin_right = -399.0
+margin_bottom = -225.0
+custom_fonts/font = ExtResource( 3 )
+text = "Select Level"
+
+[node name="BackButton" type="Button" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -683.0
+margin_top = 132.0
+margin_right = -590.0
+margin_bottom = 178.0
+custom_fonts/font = ExtResource( 4 )
+custom_styles/hover = SubResource( 1 )
+custom_styles/pressed = SubResource( 1 )
+custom_styles/focus = SubResource( 1 )
+custom_styles/disabled = SubResource( 1 )
+custom_styles/normal = SubResource( 1 )
+text = "Back"
+flat = true
+
+[connection signal="pressed" from="BackButton" to="." method="_on_BackButton_pressed"]

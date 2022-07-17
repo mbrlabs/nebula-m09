@@ -139,7 +139,9 @@ func _on_ExitButton_pressed() -> void:
 # -------------------------------------------------------------------------------------------------
 func _on_SettingsButton_pressed() -> void:
 	$SettingsOverlay.show()
+	SoundEffects.move()
 
 # -------------------------------------------------------------------------------------------------
 func _on_SelectLevelButton_pressed() -> void:
-	pass
+	$LevelSelectOverlay.show()
+	SoundEffects.move()
