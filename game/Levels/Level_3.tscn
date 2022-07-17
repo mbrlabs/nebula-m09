@@ -38,10 +38,10 @@ position = Vector2( 816, 288 )
 position = Vector2( 912, 480 )
 
 [node name="Player" parent="TileMap" instance=ExtResource( 2 )]
-position = Vector2( 112, 204 )
+position = Vector2( 112, 208 )
 
 [node name="PlayerMirrored" parent="TileMap" instance=ExtResource( 2 )]
-position = Vector2( 304, 12 )
+position = Vector2( 304, 16 )
 mirrored = true
 
 [node name="Level" type="Label" parent="."]
