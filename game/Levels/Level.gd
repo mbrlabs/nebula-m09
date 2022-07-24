@@ -48,14 +48,11 @@ func reset() -> void:
 	_player.reset()
 	_player_mirrored.reset()
 	_occupied_positions.clear()
-	for orb in _orbs.get_children():
-		if orb is Orb:
-			orb.collected = false
 
 # -------------------------------------------------------------------------------------------------
 func _are_all_orbs_collected() -> bool:
 	for orb in _orbs.get_children():
-		if orb is Orb && !orb.collected:
+		if !(_player.has_collected_orb(orb) || _player_mirrored.has_collected_orb(orb)):
 			return false
 	return true
 

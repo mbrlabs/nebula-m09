@@ -15,11 +15,6 @@ _global_script_classes=[ {
 "path": "res://Levels/Level.gd"
 }, {
 "base": "Node2D",
-"class": "Orb",
-"language": "GDScript",
-"path": "res://Orb.gd"
-}, {
-"base": "Node2D",
 "class": "Player",
 "language": "GDScript",
 "path": "res://Player/Player.gd"
@@ -31,7 +26,6 @@ _global_script_classes=[ {
 } ]
 _global_script_class_icons={
 "Level": "",
-"Orb": "",
 "Player": "",
 "Types": ""
 }
@@ -61,7 +55,6 @@ gdscript/warnings/return_value_discarded=false
 
 window/size/width=1920
 window/size/height=1080
-window/size/fullscreen=true
 window/size/test_width=1440
 window/size/test_height=810
 window/stretch/mode="2d"

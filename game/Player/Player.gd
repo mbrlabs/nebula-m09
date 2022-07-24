@@ -48,6 +48,21 @@ func _process(delta: float) -> void:
 			_start.self_modulate = color
 
 # -------------------------------------------------------------------------------------------------
+func has_collected_orb(orb: Node2D) -> bool:
+	if _line.points.empty():
+		return false
+	
+	var point_pairs := _line.points.size() - 1
+	for i in point_pairs:
+		var tail: Vector2 = _line.points[i]
+		var head: Vector2 = _line.points[i+1]
+		var expected_pos := tail + (head-tail) / 2.0
+		expected_pos = _line.to_global(expected_pos)
+		if abs(expected_pos.distance_to(orb.global_position)) < 10:
+			return true
+	return false
+
+# -------------------------------------------------------------------------------------------------
 func reset() -> void:
 	_directions.clear()
 	_line.clear_points()
@@ -169,7 +184,6 @@ func _on_failed_move_indication_tween_done() -> void:
 # -------------------------------------------------------------------------------------------------
 func _on_tween_done() -> void:
 	_move_in_progress = false
-	#_main_player_indicator.visible = _line.points.size() > 1 && !is_closed_loop()
 
 # -------------------------------------------------------------------------------------------------
 func _set_latest_point_position(point: Vector2) -> void:
