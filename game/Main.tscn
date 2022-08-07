@@ -171,8 +171,6 @@ anchor_mode = 0
 current = true
 script = ExtResource( 3 )
 
-[node name="PuzzleSolvedTween" type="Tween" parent="."]
-
 [node name="Credits" type="Label" parent="."]
 margin_left = 74.0
 margin_top = 477.0

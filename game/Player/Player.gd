@@ -16,7 +16,6 @@ signal moving_back(from, to)
 # -------------------------------------------------------------------------------------------------
 export var mirrored: bool = false
 onready var _line: Line2D = $Line2D
-onready var _tween: Tween = $Tween
 onready var _failure_particles: CPUParticles2D = $Head/FailureParticles
 onready var _start: Sprite = $Start
 onready var _head: Area2D = $Head
@@ -26,7 +25,6 @@ var _directions: Array
 
 # -------------------------------------------------------------------------------------------------
 func _ready() -> void:
-	_tween.connect("tween_all_completed", self, "_on_tween_done")
 	var color := COLOR_BLUE
 	if mirrored:
 		color = COLOR_RED
@@ -117,11 +115,12 @@ func indicate_failed_move(direction: int) -> void:
 		
 		_line.add_point(from)
 		
-		_tween.remove_all()
-		_tween.connect("tween_all_completed", self, "_on_failed_move_indication_tween_done")
-		_tween.interpolate_method(self, "_set_latest_point_position", from, to, 0.1, Tween.TRANS_CUBIC, Tween.EASE_OUT, 0)
-		_tween.interpolate_method(self, "_set_latest_point_position", to, from, 0.06, Tween.TRANS_CUBIC, Tween.EASE_OUT, 0.1)
-		_tween.start()
+		var tween := get_tree().create_tween().set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
+		tween.tween_method(self, "_set_latest_point_position", from, to, 0.1)
+		tween.tween_method(self, "_set_latest_point_position", to, from, 0.06)
+		tween.tween_callback(self, "_on_failed_move_indication_tween_done")
+		tween.play()
+		
 		_failure_particles.emitting = true
 		_move_in_progress = true
 		
@@ -151,9 +150,11 @@ func _move_forward(direction: int, steps: int) -> void:
 	_directions.append(direction)
 	
 	# Tween the new point to to the target
-	_tween.remove_all()
-	_tween.interpolate_method(self, "_set_latest_point_position", from, to, 0.12, Tween.TRANS_CUBIC, Tween.EASE_OUT)
-	_tween.start()
+	var tween := get_tree().create_tween().set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
+	tween.tween_method(self, "_set_latest_point_position", from, to, 0.12)
+	tween.tween_callback(self, "_on_move_forward_tween_done")
+	tween.play()
+
 	_move_in_progress = true
 
 # -------------------------------------------------------------------------------------------------
@@ -164,26 +165,27 @@ func _move_back() -> void:
 	emit_signal("moving_back", _line.to_global(from), _line.to_global(to))
 
 	# Tween the new point to to the target
-	_tween.remove_all()
-	_tween.connect("tween_all_completed", self, "_on_move_back_tween_done")
-	_tween.interpolate_method(self, "_set_latest_point_position", from, to, 0.08, Tween.TRANS_CUBIC, Tween.EASE_OUT)
-	_tween.start()
+	var tween := get_tree().create_tween().set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
+	tween.tween_method(self, "_set_latest_point_position", from, to, 0.08)
+	tween.tween_callback(self, "_on_move_back_tween_done")
+	tween.play()
+	
 	_move_in_progress = true
 
 # -------------------------------------------------------------------------------------------------
+func _on_move_forward_tween_done() -> void:
+	_move_in_progress = false
+
+# -------------------------------------------------------------------------------------------------
 func _on_move_back_tween_done() -> void:
-	_tween.disconnect("tween_all_completed", self, "_on_move_back_tween_done")
+	_move_in_progress = false
 	_directions.remove(_directions.size() - 1)
 	_line.remove_point(_line.get_point_count() - 1)
 
 # -------------------------------------------------------------------------------------------------
 func _on_failed_move_indication_tween_done() -> void:
-	_tween.disconnect("tween_all_completed", self, "_on_failed_move_indication_tween_done")
-	_line.remove_point(_line.get_point_count() - 1)
-
-# -------------------------------------------------------------------------------------------------
-func _on_tween_done() -> void:
 	_move_in_progress = false
+	_line.remove_point(_line.get_point_count() - 1)
 
 # -------------------------------------------------------------------------------------------------
 func _set_latest_point_position(point: Vector2) -> void:

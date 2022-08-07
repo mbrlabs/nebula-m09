@@ -101,5 +101,3 @@ anims/pulse = SubResource( 4 )
 self_modulate = Color( 1, 1, 1, 0.392157 )
 scale = Vector2( 0.291406, 0.291406 )
 texture = ExtResource( 1 )
-
-[node name="Tween" type="Tween" parent="."]

@@ -20,7 +20,6 @@ const LEVELS := [
 ]
 
 # -------------------------------------------------------------------------------------------------
-onready var _puzzle_solved_tween: Tween = $PuzzleSolvedTween
 onready var _env: Environment = $WorldEnvironment.environment
 onready var _camera: Camera2D = $Camera
 onready var _tip_timer: Timer = $TipTimer
@@ -92,20 +91,20 @@ func _handle_solved_level() -> void:
 	var dur := 0.25
 	var dur2 := dur*1.2
 	var dur_offset := dur*1.5
-	_puzzle_solved_tween.remove_all()
-	_puzzle_solved_tween.connect("tween_all_completed", self, "_on_puzzle_solved_tween_finished")
-	_puzzle_solved_tween.interpolate_property(_env, "glow_intensity", _env.glow_intensity, glow_target, dur, Tween.TRANS_CUBIC, Tween.EASE_OUT)
-	_puzzle_solved_tween.interpolate_property(_env, "glow_bloom", _env.glow_bloom, bloom_target, dur, Tween.TRANS_CUBIC, Tween.EASE_OUT)
-	_puzzle_solved_tween.interpolate_property(_env, "glow_intensity", glow_target, _env.glow_intensity, dur2, Tween.TRANS_CUBIC, Tween.EASE_IN, dur_offset)
-	_puzzle_solved_tween.interpolate_property(_env, "glow_bloom", bloom_target, _env.glow_bloom, dur2, Tween.TRANS_CUBIC, Tween.EASE_IN, dur_offset)
-	_puzzle_solved_tween.start()
+	var tween := get_tree().create_tween().set_trans(Tween.TRANS_CUBIC)
+	tween.tween_property(_env, "glow_intensity", glow_target, dur).set_ease(Tween.EASE_OUT)
+	tween.parallel().tween_property(_env, "glow_bloom", bloom_target, dur).set_ease(Tween.EASE_OUT)
+	tween.tween_property(_env, "glow_intensity", _env.glow_intensity, dur2).set_ease(Tween.EASE_IN)
+	tween.parallel().tween_property(_env, "glow_bloom", _env.glow_bloom, dur2).set_ease(Tween.EASE_IN)
+	tween.tween_callback(self, "_on_puzzle_solved_tween_finished")
+	tween.play()
+	
 	_camera.shake(1.25, 0.3)
 	SoundEffects.success()
 
 # -------------------------------------------------------------------------------------------------
 func _on_puzzle_solved_tween_finished() -> void:
 	yield(get_tree().create_timer(0.1), "timeout")
-	_puzzle_solved_tween.disconnect("tween_all_completed", self, "_on_puzzle_solved_tween_finished")
 	
 	_solved_levels_indices[_current_level_index] = true
 	$LevelSelectOverlay.set_solved(_current_level_index + 1)
